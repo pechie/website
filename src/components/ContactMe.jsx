@@ -1,26 +1,35 @@
 import React from "react";
+import { useScrollReveal } from "../hooks/useScrollReveal";
 
 export default function ContactMe() {
+  const { ref, isVisible } = useScrollReveal();
+
   return (
-    <div className="bg-white flex flex-col min-h-[91.7vh] w-auto h-auto items-center">
-      <div className="w-4/5 min-h-[200px] h-[30%] text-center font-sans">
-        <h1 className="mt-[100px] text-[55px] text-[#181818]">Contact Me</h1>
-      </div>
-      <div className="w-4/5 min-h-[600px] h-auto flex flex-row items-center justify-center">
-        <div className="min-h-[400px] h-[60%] min-w-[400px] w-[30%] m-10 text-center rounded-[25px] shadow-[0_0_8px_#888888] border-t-[5px] border-[#50cbaf] justify-center max-[500px]:min-w-[300px] max-[500px]:w-auto">
-          <h1 className="m-[50px] text-[#292929]">Email</h1>
-          <p className="text-lg text-[#3b3b3b] mx-[50px]">
+    <div className="min-h-screen flex flex-col items-center justify-center px-6 bg-[#0a0a0a]">
+      <div
+        ref={ref}
+        className={[
+          "w-full max-w-[560px] transition-all duration-500",
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5",
+        ].join(" ")}
+      >
+        <p className="text-[#6e6e73] text-xs uppercase tracking-[0.08em] mb-3">Contact</p>
+        <h1 className="text-[#f5f5f7] text-[40px] font-bold tracking-[-0.02em] mb-8">
+          Get in touch
+        </h1>
+        <div className="bg-[#1c1c1e] border border-white/[0.08] rounded-xl p-8">
+          <p className="text-[#6e6e73] text-base leading-relaxed mb-6">
             Feel free to reach out with any questions you may have, you can
             either use the link below, or send me an email at
             pechie717@gmail.com, and I will respond as soon as I can.
           </p>
-          <a href="mailto:pechie717@gmail.com" target="_blank" rel="noreferrer">
-            <button
-              className="text-xl h-[50px] w-[190px] mx-auto mt-10 mb-5 bg-white text-[#50cbaf] border-2 border-[#50cbaf] rounded-[20px] shadow-[0_0_8px_#888888] outline-none cursor-pointer hover:bg-[#50cbaf] hover:text-white block transition-colors"
-              type="button"
-            >
-              Send me an Email
-            </button>
+          <a
+            href="mailto:pechie717@gmail.com"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-block bg-[#0071e3] text-white text-sm font-medium py-3 px-6 rounded-[980px] no-underline hover:bg-[#0077ed] transition-colors duration-200"
+          >
+            Send me an email
           </a>
         </div>
       </div>

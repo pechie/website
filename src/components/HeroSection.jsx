@@ -1,47 +1,39 @@
 import React from "react";
+import { useScrollReveal } from "../hooks/useScrollReveal";
 import { Button } from "./Button";
 
 export default function HeroSection() {
-  function isMobile() { return ('ontouchstart' in document.documentElement); }
-  const video_src = (window.innerWidth < 800 && isMobile())
-    ? "/videos/background-video-720p-crop.mp4"
-    : "/videos/background-video.mp4";
+  const { ref, isVisible } = useScrollReveal();
 
   return (
-    <div className="min-h-[60vh] h-auto w-full flex flex-row justify-center items-center [box-shadow:inset_0_0_0_1000px_rgba(0,0,0,0.2)] overflow-hidden max-[900px]:flex-col">
-      <video
-        src={video_src}
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="object-cover min-w-full min-h-full w-screen h-screen fixed z-[-10] top-0 left-0"
-      />
-      <div className="w-1/2 h-full flex flex-col justify-center items-center max-[900px]:w-4/5 max-[900px]:mt-[50px]">
-        <h1 className="text-white text-[100px] mt-0 text-center max-[1300px]:text-[50px]">
-          Nikolas Pechie
-        </h1>
-        <p className="mt-2 text-white text-[32px] font-trebuchet text-center max-[1300px]:text-[24px]">
-          Software Engineer - Boston, MA
-        </p>
-        <p className="mt-2 text-white text-[32px] font-trebuchet text-center max-[1300px]:text-[24px]">
-          Northeastern University Class of 2021
-        </p>
-        <div className="mt-8">
-          <Button
-            buttonStyle="btn--outline"
-            buttonSize="btn--large"
-          >
-            Contact Me
-          </Button>
-        </div>
-      </div>
-      <div className="w-1/2 h-[60vh] flex justify-center items-center max-[900px]:hidden">
+    <div
+      className="relative min-h-screen flex flex-col items-center justify-center px-6 overflow-hidden bg-[#0a0a0a]"
+      style={{
+        background:
+          "radial-gradient(ellipse at 50% 40%, rgba(0,113,227,0.08) 0%, transparent 70%), #0a0a0a",
+      }}
+    >
+      <div
+        ref={ref}
+        className={[
+          "flex flex-col items-center text-center max-w-[680px] transition-all duration-500",
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5",
+        ].join(" ")}
+      >
         <img
           src="/images/headshot_2.jpg"
-          alt="Headshot"
-          className="min-h-[300px] h-[300px] min-w-[240px] w-[240px] border-[5px] border-white rounded-[35px]"
+          alt="Nikolas Pechie"
+          className="mb-8 w-[160px] h-[160px] rounded-full object-cover ring-1 ring-white/10"
         />
+        <h1 className="text-[#f5f5f7] font-bold tracking-[-0.03em] text-[clamp(40px,_6vw,_72px)] leading-tight mb-4">
+          Nikolas Pechie
+        </h1>
+        <p className="text-[#6e6e73] text-[19px] mb-8">
+          Software Engineer — Boston, MA
+        </p>
+        <Button buttonStyle="btn--primary" buttonSize="btn--large" to="/contact">
+          Get in touch
+        </Button>
       </div>
     </div>
   );
