@@ -20,9 +20,11 @@ export default function HeroSection() {
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5",
         ].join(" ")}
       >
-        <p className="text-[#6e6e73] text-xs uppercase tracking-[0.08em] mb-4">
-          Software Engineer
-        </p>
+        <img
+          src="/images/headshot_2.jpg"
+          alt="Nikolas Pechie"
+          className="mb-8 w-[160px] h-[160px] rounded-full object-cover ring-1 ring-white/10"
+        />
         <h1 className="text-[#f5f5f7] font-bold tracking-[-0.03em] text-[clamp(40px,_6vw,_72px)] leading-tight mb-4">
           Nikolas Pechie
         </h1>
@@ -32,11 +34,6 @@ export default function HeroSection() {
         <Button buttonStyle="btn--primary" buttonSize="btn--large" to="/contact">
           Get in touch
         </Button>
-        <img
-          src="/images/headshot_2.jpg"
-          alt="Nikolas Pechie"
-          className="mt-12 w-[160px] h-[160px] rounded-full object-cover ring-1 ring-white/10"
-        />
       </div>
     </div>
   );
