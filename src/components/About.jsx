@@ -1,12 +1,35 @@
 import React from "react";
-import Cards from "./Cards";
+import { useScrollReveal } from "../hooks/useScrollReveal";
+
+const SKILLS = [
+  "NodeJS",
+  "AWS",
+  "Git",
+  "React",
+  "Jira",
+  "Jenkins",
+  "TeamCity",
+];
 
 export default function About() {
+  const bioReveal = useScrollReveal();
+  const skillsReveal = useScrollReveal();
+
   return (
-    <div className="p-16 bg-gradient-to-b from-white to-transparent flex flex-row max-[1200px]:flex-col max-[1200px]:p-5">
-      <div className="flex flex-col bg-[#082d3b] rounded-[30px] w-2/5 text-center mx-auto max-[1200px]:w-4/5 max-[1200px]:mb-5 max-[800px]:w-[90%] max-[500px]:w-full max-[500px]:mx-0 max-[500px]:rounded-none">
-        <h1 className="text-white mt-5">About me</h1>
-        <p className="text-white mx-5 mt-[50px] mb-5 leading-relaxed text-[22px] font-trebuchet max-[500px]:text-base max-[500px]:mx-[10px]">
+    <section className="py-24 px-6 max-w-[980px] mx-auto">
+      {/* Bio */}
+      <div
+        ref={bioReveal.ref}
+        className={[
+          "mb-20 transition-all duration-500",
+          bioReveal.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5",
+        ].join(" ")}
+      >
+        <p className="text-[#6e6e73] text-xs uppercase tracking-[0.08em] mb-3">About</p>
+        <h2 className="text-[#f5f5f7] text-[40px] font-semibold tracking-[-0.02em] mb-6">
+          About me
+        </h2>
+        <p className="text-[#f5f5f7] text-[17px] leading-relaxed max-w-[640px]">
           Hi, I'm Nick. I am currently a Senior at Northeastern University, and
           I will be graduating in May of 2021 with a B.S. in Computer
           Engineering and a minor in Computer Science. Throughout my time at
@@ -20,10 +43,30 @@ export default function About() {
           learn more about me!
         </p>
       </div>
-      <div className="flex flex-col bg-[#082d3b] rounded-[30px] w-2/5 text-center mx-auto min-h-[450px] max-[1200px]:w-4/5 max-[800px]:w-[90%] max-[500px]:w-full max-[500px]:mx-0 max-[500px]:rounded-none">
-        <h1 className="text-white mt-5">Skills</h1>
-        <Cards />
+
+      {/* Skills */}
+      <div
+        ref={skillsReveal.ref}
+        className={[
+          "transition-all duration-500",
+          skillsReveal.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5",
+        ].join(" ")}
+      >
+        <p className="text-[#6e6e73] text-xs uppercase tracking-[0.08em] mb-3">Skills</p>
+        <h2 className="text-[#f5f5f7] text-[40px] font-semibold tracking-[-0.02em] mb-6">
+          Skills
+        </h2>
+        <div className="flex flex-wrap gap-3">
+          {SKILLS.map((skill) => (
+            <span
+              key={skill}
+              className="text-[#f5f5f7] text-[14px] px-[14px] py-[6px] rounded-[980px] bg-[#1c1c1e] border border-white/[0.08]"
+            >
+              {skill}
+            </span>
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

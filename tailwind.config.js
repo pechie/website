@@ -6,14 +6,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        trebuchet: [
-          '"Trebuchet MS"',
-          '"Lucida Sans Unicode"',
-          '"Lucida Grande"',
-          '"Lucida Sans"',
-          'Arial',
-          'sans-serif',
-        ],
+        sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'sans-serif'],
       },
     },
   },

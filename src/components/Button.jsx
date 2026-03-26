@@ -6,7 +6,6 @@ const SIZES = ["btn--medium", "btn--large"];
 
 export const Button = ({
   children,
-  type,
   onClick,
   buttonStyle,
   buttonSize,
@@ -15,27 +14,23 @@ export const Button = ({
   const checkButtonStyle = STYLES.includes(buttonStyle) ? buttonStyle : STYLES[0];
   const checkButtonSize = SIZES.includes(buttonSize) ? buttonSize : SIZES[0];
 
-  const baseClass = "py-2 px-5 rounded-sm outline-none border-none cursor-pointer text-xl transition-all duration-300";
-
   const styleClass =
     checkButtonStyle === "btn--outline"
-      ? "bg-transparent text-white border-[3px] border-white hover:bg-white hover:text-[#242424]"
-      : "bg-white text-[#242424] border border-white hover:bg-white hover:text-[#242424]";
+      ? "bg-transparent text-[#f5f5f7] border border-white/30 hover:border-white/80 hover:text-white"
+      : "bg-[#0071e3] text-white border border-[#0071e3] hover:bg-[#0077ed] hover:border-[#0077ed]";
 
   const sizeClass =
     checkButtonSize === "btn--large"
-      ? "py-3 px-[26px]"
-      : "py-2 px-5";
+      ? "py-3 px-8 text-base"
+      : "py-2 px-5 text-sm";
 
   return (
-    <Link to={to} className="no-underline max-[900px]:block max-[900px]:w-full">
-      <button
-        className={`${baseClass} ${styleClass} ${sizeClass} max-[900px]:w-full`}
-        onClick={onClick}
-        type={type}
-      >
-        {children}
-      </button>
+    <Link
+      to={to}
+      onClick={onClick}
+      className={`no-underline inline-block rounded-[980px] font-medium outline-none cursor-pointer transition-all duration-200 ${styleClass} ${sizeClass}`}
+    >
+      {children}
     </Link>
   );
 };

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Button } from "./Button";
 
 export default function Navbar() {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
+  const location = useLocation();
 
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
@@ -19,63 +20,72 @@ export default function Navbar() {
     return () => window.removeEventListener("resize", showButton);
   }, []);
 
-  const navLinkClass =
-    "text-white flex items-center no-underline px-4 py-2 h-full " +
-    "border-b-4 border-transparent hover:border-white transition-all duration-200 " +
-    "max-[960px]:text-center max-[960px]:p-8 max-[960px]:w-full max-[960px]:table " +
-    "max-[960px]:hover:bg-white max-[960px]:hover:text-[#242424] max-[960px]:hover:border-transparent";
+  const linkClass = (path) =>
+    "text-[14px] no-underline transition-colors duration-200 px-2 py-1 " +
+    (location.pathname === path
+      ? "text-[#0071e3]"
+      : "text-[#f5f5f7] hover:text-[#0071e3]");
 
   return (
-    <nav className="bg-gradient-to-r from-[#1c1b1b] to-[#1a1717] h-20 flex justify-center items-center text-xl sticky top-0 z-[999]">
-      <div className="flex justify-center items-center h-20 w-full">
+    <nav className="sticky top-0 z-[999] h-12 flex items-center bg-black/[0.72] backdrop-blur-xl saturate-150 border-b border-white/[0.08]">
+      <div className="flex justify-between items-center w-full max-w-[980px] mx-auto px-6">
         <Link
           to="/"
-          className="text-white cursor-pointer no-underline text-3xl flex items-center"
+          className="text-[#f5f5f7] text-[17px] font-semibold no-underline"
           onClick={closeMobileMenu}
         >
-          pechie.dev
+          Nikolas Pechie
         </Link>
+
+        {/* Mobile hamburger */}
         <div
-          className="max-[960px]:block hidden absolute top-0 right-0 translate-x-[-100%] translate-y-[60%] text-[1.8rem] cursor-pointer"
+          className="max-[960px]:block hidden text-[#f5f5f7] text-xl cursor-pointer"
           onClick={handleClick}
         >
-          <i className={click ? "fas fa-times text-white text-[2rem]" : "fas fa-bars text-white"} />
+          <i className={click ? "fas fa-times" : "fas fa-bars"} />
         </div>
-        <ul
-          className={[
-            "list-none text-center m-0 p-0",
-            "min-[960px]:grid min-[960px]:grid-cols-4 min-[960px]:gap-[10px] min-[960px]:w-[60vw] min-[960px]:justify-end min-[960px]:mr-8",
-            click
-              ? "flex flex-col w-full h-[90vh] absolute top-20 left-0 bg-[#242222] z-[1] transition-all duration-500"
-              : "max-[960px]:hidden",
-          ].join(" ")}
-        >
-          <li className="min-[960px]:h-20">
-            <Link to="/" className={navLinkClass} onClick={closeMobileMenu}>
-              Home
-            </Link>
+
+        {/* Desktop nav links */}
+        <ul className="list-none m-0 p-0 gap-2 items-center max-[960px]:hidden flex">
+          <li>
+            <Link to="/" className={linkClass("/")} onClick={closeMobileMenu}>Home</Link>
           </li>
-          <li className="min-[960px]:h-20">
-            <Link to="/experience" className={navLinkClass} onClick={closeMobileMenu}>
-              Experience
-            </Link>
+          <li>
+            <Link to="/experience" className={linkClass("/experience")} onClick={closeMobileMenu}>Experience</Link>
           </li>
-          <li className="min-[960px]:h-20">
-            <Link to="/resume" className={navLinkClass} onClick={closeMobileMenu}>
-              Resume
-            </Link>
+          <li>
+            <Link to="/resume" className={linkClass("/resume")} onClick={closeMobileMenu}>Resume</Link>
           </li>
-          <li className="min-[960px]:h-20">
-            <Link
-              to="/contact"
-              className="hidden max-[960px]:block text-center my-8 rounded w-4/5 no-underline text-2xl bg-transparent text-white py-[14px] px-5 border border-white transition-all duration-300 hover:bg-white hover:text-[#242424] mx-auto"
-              onClick={closeMobileMenu}
-            >
-              Contact Me
-            </Link>
-          </li>
+          {button && (
+            <li className="ml-2">
+              <Button buttonStyle="btn--outline" to="/contact">Contact</Button>
+            </li>
+          )}
         </ul>
-        {button && <Button buttonStyle="btn--outline">Contact Me</Button>}
+
+        {/* Mobile dropdown menu */}
+        {click && (
+          <ul className="list-none m-0 p-0 flex flex-col w-full absolute top-12 left-0 bg-black/[0.95] backdrop-blur-xl py-6 border-b border-white/[0.08] z-[1] items-center gap-5">
+            <li>
+              <Link to="/" className={linkClass("/")} onClick={closeMobileMenu}>Home</Link>
+            </li>
+            <li>
+              <Link to="/experience" className={linkClass("/experience")} onClick={closeMobileMenu}>Experience</Link>
+            </li>
+            <li>
+              <Link to="/resume" className={linkClass("/resume")} onClick={closeMobileMenu}>Resume</Link>
+            </li>
+            <li>
+              <Link
+                to="/contact"
+                className="text-[#f5f5f7] text-sm no-underline py-2 px-6 rounded-[980px] border border-white/40 hover:border-white transition-colors duration-200"
+                onClick={closeMobileMenu}
+              >
+                Contact
+              </Link>
+            </li>
+          </ul>
+        )}
       </div>
     </nav>
   );
