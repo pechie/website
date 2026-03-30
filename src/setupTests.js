@@ -1,5 +1,6 @@
 import '@testing-library/jest-dom'
 import { vi } from 'vitest'
+import React from 'react'
 
 // IntersectionObserver is not implemented in jsdom
 globalThis.IntersectionObserver = class IntersectionObserver {
@@ -20,14 +21,14 @@ globalThis.ResizeObserver = vi.fn(function () {
   }
 })
 
-// Mock react-pdf globally to avoid DOMMatrix issues in tests
-vi.mock('react-pdf', () => {
-  const React = require('react')
-  return {
-    pdfjs: { GlobalWorkerOptions: {} },
-    Document: ({ children, loading, error }) =>
-      React.createElement('div', { 'data-testid': 'pdf-document' }, children),
-    Page: ({ pageNumber }) =>
-      React.createElement('div', { 'data-testid': 'pdf-page' }, `page ${pageNumber}`),
-  }
-})
+// Mock react-pdf globally to avoid DOMMatrix errors at module load time in jsdom.
+// Global placement is necessary because pdfjs-dist accesses DOMMatrix before
+// any test-level mock can intercept it. Test-local overrides require vi.unmock()
+// or vi.resetModules().
+vi.mock('react-pdf', () => ({
+  pdfjs: { GlobalWorkerOptions: {} },
+  Document: ({ children }) =>
+    React.createElement('div', { 'data-testid': 'pdf-document' }, children),
+  Page: ({ pageNumber }) =>
+    React.createElement('div', { 'data-testid': 'pdf-page' }, `page ${pageNumber}`),
+}))
