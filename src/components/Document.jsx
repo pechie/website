@@ -24,7 +24,6 @@ export default function Document() {
   return (
     <div className="flex flex-col items-start justify-start px-6 py-16 bg-[#0a0a0a]">
       <div className="w-full max-w-[860px] mx-auto">
-        <p className="text-[#6e6e73] text-xs uppercase tracking-[0.08em] mb-3">Resume</p>
         <h1 className="text-[#f5f5f7] text-[40px] font-bold tracking-[-0.02em] mb-4">
           Resume
         </h1>
@@ -33,7 +32,7 @@ export default function Document() {
           download
           className="inline-block bg-[#0071e3] text-white text-sm font-medium py-3 px-6 rounded-[980px] no-underline hover:bg-[#0077ed] transition-colors duration-200 mb-8"
         >
-          Download Resume
+          Download
         </a>
         {/* PDF preview — hidden on mobile */}
         <div
