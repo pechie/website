@@ -3,7 +3,7 @@ import Document from './Document'
 
 test('renders the download button', () => {
   render(<Document />)
-  const link = screen.getByRole('link', { name: /download resume/i })
+  const link = screen.getByRole('link', { name: /download/i })
   expect(link).toBeInTheDocument()
   expect(link).toHaveAttribute('href', '/resume.pdf')
   expect(link).toHaveAttribute('download')

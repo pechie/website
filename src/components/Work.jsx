@@ -23,7 +23,7 @@ function JobCard({ logo, alt, company, role, location, dates, bullets, reveal })
           <p className="text-[#6e6e73] text-sm">{dates}</p>
         </div>
       </div>
-      <ul className="text-[#f5f5f7] text-base leading-relaxed ml-4 space-y-2">
+      <ul className="text-[#f5f5f7] text-base leading-relaxed ml-4 space-y-2 list-disc">
         {bullets.map((b, i) => <li key={i}>{b}</li>)}
       </ul>
     </div>
@@ -43,22 +43,21 @@ function ProjectCard({ title, description, media, reveal }) {
         <h3 className="text-[#f5f5f7] text-xl font-semibold mb-4">{title}</h3>
         <div className="text-[#f5f5f7] text-base leading-relaxed">{description}</div>
       </div>
-      <div className="w-[320px] h-[320px] shrink-0 rounded-xl overflow-hidden max-[500px]:w-full max-[500px]:h-auto">
-        {media}
-      </div>
+      {media && (
+        <div className="w-[320px] h-[320px] shrink-0 rounded-xl overflow-hidden max-[500px]:w-full max-[500px]:h-auto">
+          {media}
+        </div>
+      )}
     </div>
   );
 }
 
 export default function Work() {
   const headingReveal = useScrollReveal();
-  const issReveal = useScrollReveal();
-  const qinetiqReveal = useScrollReveal();
-  const boseReveal = useScrollReveal();
+  const chewyReveal = useScrollReveal();
   const projectsHeadingReveal = useScrollReveal();
-  const plantPodReveal = useScrollReveal();
-  const twitterReveal = useScrollReveal();
-  const sirViveReveal = useScrollReveal();
+  const websiteReveal = useScrollReveal();
+  const nbaReveal = useScrollReveal();
 
   return (
     <div className="min-h-screen px-6 py-16 bg-[#0a0a0a]">
@@ -72,52 +71,25 @@ export default function Work() {
             headingReveal.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5",
           ].join(" ")}
         >
-          <p className="text-[#6e6e73] text-xs uppercase tracking-[0.08em] mb-3">Experience</p>
           <h1 className="text-[#f5f5f7] text-[40px] font-bold tracking-[-0.02em]">Work Experience</h1>
         </div>
 
         {/* Job cards */}
         <div className="flex flex-col gap-4 mb-20">
           <JobCard
-            reveal={issReveal}
-            logo="/images/iss-logo.jpg"
-            alt="ISS Logo"
-            company="Integrity Security Services"
-            role="Software Engineering Co-op"
+            reveal={chewyReveal}
+            logo="/images/chewy-logo.png"
+            alt="Chewy Logo"
+            company="Chewy Inc"
+            role="Software Engineer"
             location="Boston, MA"
-            dates="December 2019 - August 2020"
+            dates="July 2021 - Present"
             bullets={[
-              "Restructured credential management across all Node.js services to adhere to AWS security best practices.",
-              "Simplified existing Node.js microservices by implementing serverless functions (AWS Lambda) to handle periodic tasks.",
-              "Implemented AWS Simple Queue Service and AWS Lambda, and deployed Lambda code to handle messages from multiple FIFO queues.",
-              "Developed a new REST API service to assist customers in provisioning V2X certificates per the IEEE 1609.2 standard.",
-            ]}
-          />
-          <JobCard
-            reveal={qinetiqReveal}
-            logo="/images/qinetiq-logo.png"
-            alt="Qinetiq Logo"
-            company="QinetiQ - NA"
-            role="Robotics Software Development Co-op"
-            location="Waltham, MA"
-            dates="January - June 2019"
-            bullets={[
-              "Translated gravity force measurements from three sensors on an autonomous robot into radial coordinates to be displayed in a 3D model, using C++.",
-              "Integrated TeamCity builds with Coverity and automated a report generation process.",
-              "Created Python scripts to add different header statements to thousands of files within a project depending on the file type.",
-            ]}
-          />
-          <JobCard
-            reveal={boseReveal}
-            logo="/images/bose-logo.png"
-            alt="Bose Logo"
-            company="Bose Corporation"
-            role="Software Development Co-op"
-            location="Framingham, MA"
-            dates="January - August 2018"
-            bullets={[
-              "Developed and continuously updated an iOS application using Swift to test the different features and firmware versions of a product.",
-              "Integrated iOS Snapshot Test Case into our project, created unit tests to ensure that accidental UI changes were automatically detected.",
+              "Led the technical design and implementation of a full migration to PayPal's Braintree payment processor, replacing the existing billing solution for subscription management and payment processing. Built new API endpoints to onboard new customer accounts to Braintree, executed a zero-downtime migration of all existing accounts, and mirrored legacy behavior to ensure no customer impact.",
+              "Architected and led the Couchbase-to-GCP Memorystore (Valkey) migration as part of a large-scale initiative to replace self-hosted infrastructure with managed GCP equivalents. Designed a custom wrapper around Spring Data Redis' CacheManager implementing a dual-write, feature-toggle-controlled read strategy, enabling safe production validation via custom Datadog metrics and dashboards. The pattern was adopted for all other system migrations on the team.",
+              "Designed and deployed a modular microservice that evaluates order compliance against a set of business rules stored in a SQL database, integrating it into the core order flow. Eliminated hardcoded rule logic from the backend, making rules fully auditable and updatable without production deployments.",
+              "Built a dynamic content-fetching system that allows product partners to update live webpage text in real time, removing the need for engineering involvement in routine legal copy updates.",
+              "Won the company-wide hackathon with an AI-powered bug auto-triage system. Built a Chrome extension (TypeScript) that captures screen recordings and HAR files, an intake service that creates ServiceNow and Jira tickets, and a backend AI agent that performs root cause analysis, classifies bugs vs. intended behavior, and drafts pull requests for engineer review. Project has been added to the team roadmap for productionization.",
             ]}
           />
         </div>
@@ -130,75 +102,40 @@ export default function Work() {
             projectsHeadingReveal.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5",
           ].join(" ")}
         >
-          <p className="text-[#6e6e73] text-xs uppercase tracking-[0.08em] mb-3">Work</p>
           <h1 className="text-[#f5f5f7] text-[40px] font-bold tracking-[-0.02em]">Projects</h1>
         </div>
 
         {/* Project cards */}
         <div className="flex flex-col gap-4">
           <ProjectCard
-            reveal={plantPodReveal}
-            title="Plant Pod"
+            reveal={websiteReveal}
+            title="Personal Website"
             description={
               <p>
-                This was my Senior project, which I worked on with a group of four other students.
-                We decided to build a self-sufficient plant growth pod that could be monitored from
-                a mobile application. My responsibilities for this project were creating our back end using NodeJS
-                and multiple AWS services, as well as working on our mobile application in React Native with
-                one of my group members. The AWS Services I used for this project were DynamoDB, Lambda, API Gateway,
-                Cloudwatch, S3, and IAM.
+                Designed and built a personal portfolio site deployed to GitHub Pages at{" "}
+                <a href="https://pechie.dev" className="text-[#0071e3] hover:underline">
+                  pechie.dev
+                </a>
+                . Built with React, TypeScript, Vite, and Tailwind CSS. Features a multi-section
+                single-page layout with smooth scroll navigation, a resume PDF viewer, and a
+                contact form.
               </p>
             }
-            media={<img src="/images/plant-pod.gif" alt="Plant Pod" className="w-full h-full object-cover" />}
+            media={<img src="/images/website.png" alt="Personal Website" className="w-full h-full object-cover" />}
           />
           <ProjectCard
-            reveal={twitterReveal}
-            title="Twitter Bot"
+            reveal={nbaReveal}
+            title="NBA Highlight Reel Generator"
             description={
               <p>
-                Inspired by the account{" "}
-                <a href="https://twitter.com/artdecider" className="text-[#0071e3] hover:underline">
-                  @ArtDecider on Twitter
-                </a>
-                , I decided that I wanted to learn how to create my own bot that could reply to tweets on command.
-                I did this by creating a developer account which gave me access to Twitter's API,
-                and then creating a NodeJS project that constantly checks if the account has been mentioned in a tweet,
-                which will cause the account to like that tweet and reply with a random message.
-                I then deployed my project to Heroku so that it can run constantly.
-                You can view{" "}
-                <a href="https://twitter.com/boldandbrashbot" className="text-[#0071e3] hover:underline">
-                  @BoldAndBrashBot on Twitter
-                </a>
-                , or see the source code on{" "}
-                <a href="https://github.com/pechie/TwitterBot" className="text-[#0071e3] hover:underline">
-                  my Github
-                </a>
-                .
+                Built a full-stack locally-run web application that compiles custom NBA highlight
+                reels. Users select a game, player, and stat categories through a step-by-step
+                wizard UI. The FastAPI backend fetches play-by-play data and video clip URLs via
+                nba_api, downloads and concatenates clips using ffmpeg, and streams the compiled
+                MP4 directly to the browser. Built with React, TypeScript, Python, and FastAPI.
               </p>
             }
-            media={<img src="/images/bold-and-brash-bot.png" alt="Twitter Bot" className="w-full h-full object-cover" />}
-          />
-          <ProjectCard
-            reveal={sirViveReveal}
-            title="Sir Vive"
-            description={
-              <p>
-                In the Winter of 2018, I wanted my own introduction to game development in Unity,
-                so I created a one level game titled Sir Vive, which resembles a simple Mario game.
-                All of the assets from the game were either created or imported in Unity, and the scripts
-                for the objects were written in C#.
-              </p>
-            }
-            media={
-              <video
-                src="/videos/sir-vive-gameplay.mp4"
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-full h-full object-cover"
-              />
-            }
+            media={<img src="/images/nba-highlights.png" alt="NBA Highlight Reel Generator" className="w-full h-full object-cover" />}
           />
         </div>
       </div>

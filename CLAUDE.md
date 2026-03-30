@@ -32,3 +32,7 @@ React 18 SPA (Vite) deployed to GitHub Pages at pechie.dev.
 **Testing**: vitest + React Testing Library. Test files are co-located with components as `*.test.jsx`.
 
 **Deployment**: `yarn deploy` runs `gh-pages -d build` to publish the `/build` directory to the `gh-pages` branch.
+
+## Docs & Specs
+
+All design docs, specs, and implementation plans must be written to `/home/pechie/code/specs/`. Never create a `docs/` folder inside this repo.
