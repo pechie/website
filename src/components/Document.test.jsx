@@ -5,7 +5,7 @@ test('renders the download button', () => {
   render(<Document />)
   const link = screen.getByRole('link', { name: /download resume/i })
   expect(link).toBeInTheDocument()
-  expect(link).toHaveAttribute('href', '/Resume_01_24_21.pdf')
+  expect(link).toHaveAttribute('href', '/resume.pdf')
   expect(link).toHaveAttribute('download')
 })
 

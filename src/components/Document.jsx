@@ -29,7 +29,7 @@ export default function Document() {
           Resume
         </h1>
         <a
-          href="/Resume_01_24_21.pdf"
+          href="/resume.pdf"
           download
           className="inline-block bg-[#0071e3] text-white text-sm font-medium py-3 px-6 rounded-[980px] no-underline hover:bg-[#0077ed] transition-colors duration-200 mb-8"
         >
@@ -41,7 +41,7 @@ export default function Document() {
           className="hidden sm:block w-full border border-white/[0.08] rounded-xl overflow-hidden"
         >
           <PdfDocument
-            file="/Resume_01_24_21.pdf"
+            file="/resume.pdf"
             loading={
               <div className="flex items-center justify-center h-48 text-[#6e6e73] text-sm">
                 Loading...

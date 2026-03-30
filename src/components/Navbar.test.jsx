@@ -1,23 +1,16 @@
 import { vi } from 'vitest'
-import { render } from '@testing-library/react'
-import { MemoryRouter } from 'react-router-dom'
+import { render, screen, fireEvent } from '@testing-library/react'
 import Navbar from './Navbar'
 
-test('adds resize listener once and removes it on unmount', () => {
-  const addSpy = vi.spyOn(window, 'addEventListener')
-  const removeSpy = vi.spyOn(window, 'removeEventListener')
+test('renders the name', () => {
+  render(<Navbar />)
+  expect(screen.getByText('Nikolas Pechie')).toBeInTheDocument()
+})
 
-  const { unmount } = render(
-    <MemoryRouter>
-      <Navbar />
-    </MemoryRouter>
-  )
-
-  const resizeCalls = addSpy.mock.calls.filter(([event]) => event === 'resize')
-  expect(resizeCalls).toHaveLength(1)
-
-  unmount()
-
-  const removeCalls = removeSpy.mock.calls.filter(([event]) => event === 'resize')
-  expect(removeCalls).toHaveLength(1)
+test('clicking the name scrolls to top', () => {
+  const scrollToSpy = vi.spyOn(window, 'scrollTo').mockImplementation(() => {})
+  render(<Navbar />)
+  fireEvent.click(screen.getByText('Nikolas Pechie'))
+  expect(scrollToSpy).toHaveBeenCalledWith({ top: 0, behavior: 'smooth' })
+  scrollToSpy.mockRestore()
 })

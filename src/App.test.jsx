@@ -1,14 +1,16 @@
-import { render, screen } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import App from './App'
 
-test('renders home page at root route', () => {
-  window.history.pushState({}, '', '/')
+test('renders all five sections', () => {
   render(<App />)
-  expect(screen.getByRole('navigation')).toBeInTheDocument()
+  expect(document.getElementById('home')).toBeInTheDocument()
+  expect(document.getElementById('about')).toBeInTheDocument()
+  expect(document.getElementById('experience')).toBeInTheDocument()
+  expect(document.getElementById('resume')).toBeInTheDocument()
+  expect(document.getElementById('contact')).toBeInTheDocument()
 })
 
-test('renders experience page', () => {
-  window.history.pushState({}, '', '/experience')
+test('renders the navbar', () => {
   render(<App />)
-  expect(screen.getByText('Work Experience')).toBeInTheDocument()
+  expect(document.querySelector('nav')).toBeInTheDocument()
 })
