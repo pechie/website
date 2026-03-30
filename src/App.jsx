@@ -1,23 +1,24 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Home from "./components/pages/Home";
-import Resume from "./components/pages/Resume";
-import Experience from "./components/pages/Experience";
-import Contact from "./components/pages/Contact";
+import HeroSection from "./components/HeroSection";
+import About from "./components/About";
+import Work from "./components/Work";
+import Document from "./components/Document";
+import ContactMe from "./components/ContactMe";
+import SectionNav from "./components/SectionNav";
 
 export default function App() {
   return (
-    <Router>
+    <>
       <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/resume" element={<Resume />} />
-        <Route path="/experience" element={<Experience />} />
-        <Route path="/contact" element={<Contact />} />
-      </Routes>
+      <section id="home"><HeroSection /></section>
+      <section id="about"><About /></section>
+      <section id="experience"><Work /></section>
+      <section id="resume"><Document /></section>
+      <section id="contact"><ContactMe /></section>
       <Footer />
-    </Router>
+      <SectionNav />
+    </>
   );
 }

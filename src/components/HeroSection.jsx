@@ -31,7 +31,7 @@ export default function HeroSection() {
         <p className="text-[#6e6e73] text-[19px] mb-8">
           Software Engineer — Boston, MA
         </p>
-        <Button buttonStyle="btn--primary" buttonSize="btn--large" to="/contact">
+        <Button buttonStyle="btn--primary" buttonSize="btn--large" to="#contact">
           Get in touch
         </Button>
       </div>

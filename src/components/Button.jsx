@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 const STYLES = ["btn--primary", "btn--outline"];
 const SIZES = ["btn--medium", "btn--large"];
@@ -9,7 +8,7 @@ export const Button = ({
   onClick,
   buttonStyle,
   buttonSize,
-  to = "/contact",
+  to = "#contact",
 }) => {
   const checkButtonStyle = STYLES.includes(buttonStyle) ? buttonStyle : STYLES[0];
   const checkButtonSize = SIZES.includes(buttonSize) ? buttonSize : SIZES[0];
@@ -25,12 +24,12 @@ export const Button = ({
       : "py-2 px-5 text-sm";
 
   return (
-    <Link
-      to={to}
+    <a
+      href={to}
       onClick={onClick}
       className={`no-underline inline-block rounded-[980px] font-medium outline-none cursor-pointer transition-all duration-200 ${styleClass} ${sizeClass}`}
     >
       {children}
-    </Link>
+    </a>
   );
 };
