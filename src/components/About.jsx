@@ -24,7 +24,8 @@ export default function About() {
   const skillsReveal = useScrollReveal();
 
   return (
-    <section className="py-24 px-6 max-w-[980px] mx-auto">
+    <section className="py-24 px-6">
+      <div className="max-w-[980px] mx-auto">
       {/* Skills */}
       <div
         ref={skillsReveal.ref}
@@ -46,6 +47,7 @@ export default function About() {
             </span>
           ))}
         </div>
+      </div>
       </div>
     </section>
   );
