@@ -16,12 +16,12 @@ export default function HeroSection() {
       <div
         ref={ref}
         className={[
-          "flex flex-col md:flex-row items-center w-full px-6 gap-6 md:px-20 md:gap-20 transition-all duration-500",
+          "flex flex-col md:flex-row md:flex-wrap items-center w-full px-6 gap-6 md:px-20 md:gap-20 transition-all duration-500",
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5",
         ].join(" ")}
       >
         {/* Left: photo + name + subtitle + button */}
-        <div className="flex flex-col items-center text-center flex-1">
+        <div className="flex flex-col items-center text-center flex-1 w-full md:w-auto">
           <div className="mb-8 w-[420px] max-w-full h-[420px] rounded-2xl overflow-hidden ring-1 ring-white/10">
             <img
               src="/images/header_photo.jpg"
@@ -35,14 +35,21 @@ export default function HeroSection() {
           <p className="text-[#6e6e73] text-[19px] mb-8">
             Software Engineer — Boston, MA
           </p>
-          <Button buttonStyle="btn--primary" buttonSize="btn--large" to="#contact">
+          <Button buttonStyle="btn--primary" buttonSize="btn--large" to="mailto:pechie717@gmail.com">
             Get in touch
           </Button>
+          <a
+            href="/resume.pdf"
+            download
+            className="mt-4 no-underline inline-block rounded-[980px] font-medium py-3 px-8 text-base transition-all duration-200 bg-transparent text-[#f5f5f7] border border-white/30 hover:border-white/80 hover:text-white"
+          >
+            Download Resume
+          </a>
         </div>
 
         {/* Right: about me */}
-        <div className="flex-1 flex justify-center">
-          <div className="max-w-[50%]">
+        <div className="flex-1 flex justify-center min-w-[500px]">
+          <div className="max-w-full md:max-w-[50%]">
             <h2 className="text-[#f5f5f7] text-[40px] font-semibold tracking-[-0.02em] mb-6">
               About me
             </h2>

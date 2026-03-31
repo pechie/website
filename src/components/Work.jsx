@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { createPortal } from "react-dom";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 
 function JobCard({ logo, alt, company, role, location, dates, bullets, reveal }) {
@@ -30,7 +31,36 @@ function JobCard({ logo, alt, company, role, location, dates, bullets, reveal })
   );
 }
 
-function ProjectCard({ title, description, media, reveal }) {
+function VideoModal({ url, onClose }) {
+  return createPortal(
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      <div
+        className="relative w-full max-w-4xl mx-6"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          onClick={onClose}
+          className="absolute -top-10 right-0 text-white/70 hover:text-white text-sm flex items-center gap-1"
+        >
+          ✕ Close
+        </button>
+        <video
+          src={url}
+          controls
+          autoPlay
+          className="w-full rounded-xl"
+        />
+      </div>
+    </div>,
+    document.body
+  );
+}
+
+function ProjectCard({ title, description, media, reveal, repoUrl, demoUrl }) {
+  const [showDemo, setShowDemo] = useState(false);
   return (
     <div
       ref={reveal.ref}
@@ -39,9 +69,38 @@ function ProjectCard({ title, description, media, reveal }) {
         reveal.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5",
       ].join(" ")}
     >
-      <div className="flex-1 max-[1300px]:text-center">
+      <div className="flex-1 max-[1300px]:text-center flex flex-col">
         <h3 className="text-[#f5f5f7] text-xl font-semibold mb-4">{title}</h3>
-        <div className="text-[#f5f5f7] text-base leading-relaxed">{description}</div>
+        <div className="text-[#f5f5f7] text-base leading-relaxed mb-6">{description}</div>
+        <div className="mt-auto flex items-center gap-4">
+          {repoUrl && (
+            <a
+              href={repoUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 text-[#0071e3] text-sm hover:underline"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+              </svg>
+              View on GitHub
+            </a>
+          )}
+          {demoUrl && (
+            <>
+              <button
+                onClick={() => setShowDemo(true)}
+                className="inline-flex items-center gap-2 text-[#0071e3] text-sm hover:underline bg-transparent border-none cursor-pointer p-0"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+                Watch Demo
+              </button>
+              {showDemo && <VideoModal url={demoUrl} onClose={() => setShowDemo(false)} />}
+            </>
+          )}
+        </div>
       </div>
       {media && (
         <div className="w-[320px] h-[320px] shrink-0 rounded-xl overflow-hidden max-[500px]:w-full max-[500px]:h-auto">
@@ -60,7 +119,7 @@ export default function Work() {
   const nbaReveal = useScrollReveal();
 
   return (
-    <div className="min-h-screen px-6 py-16 bg-[#0a0a0a]">
+    <div className="px-6 py-16 bg-[#0a0a0a]">
       <div className="max-w-[980px] mx-auto">
 
         {/* Work Experience heading */}
@@ -109,14 +168,11 @@ export default function Work() {
         <div className="flex flex-col gap-4">
           <ProjectCard
             reveal={websiteReveal}
+            repoUrl="https://github.com/pechie/profile"
             title="Personal Website"
             description={
               <p>
-                Designed and built a personal portfolio site deployed to GitHub Pages at{" "}
-                <a href="https://pechie.dev" className="text-[#0071e3] hover:underline">
-                  pechie.dev
-                </a>
-                . Built with React, TypeScript, Vite, and Tailwind CSS. Features a multi-section
+                Designed and built a personal portfolio site deployed to GitHub Pages at pechie.dev. Built with React, TypeScript, Vite, and Tailwind CSS. Features a multi-section
                 single-page layout with smooth scroll navigation, a resume PDF viewer, and a
                 contact form.
               </p>
@@ -125,6 +181,8 @@ export default function Work() {
           />
           <ProjectCard
             reveal={nbaReveal}
+            repoUrl="https://github.com/pechie/nba-highlights"
+            demoUrl="/videos/nba-highlights-demo.mp4"
             title="NBA Highlight Reel Generator"
             description={
               <p>

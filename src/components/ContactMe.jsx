@@ -5,7 +5,7 @@ export default function ContactMe() {
   const { ref, isVisible } = useScrollReveal();
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-6 bg-[#0a0a0a]">
+    <div className="px-6 py-16 bg-[#0a0a0a] flex flex-col items-center">
       <div
         ref={ref}
         className={[
@@ -15,7 +15,7 @@ export default function ContactMe() {
       >
         <div className="flex flex-col md:flex-row gap-6">
           {/* Resume */}
-          <div className="flex-1 bg-[#1c1c1e] border border-white/[0.08] rounded-xl p-8">
+          <div className="flex-1 flex flex-col bg-[#1c1c1e] border border-white/[0.08] rounded-xl p-8">
             <h1 className="text-[#f5f5f7] text-[40px] font-bold tracking-[-0.02em] mb-8">
               Resume
             </h1>
@@ -25,14 +25,14 @@ export default function ContactMe() {
             <a
               href="/resume.pdf"
               download
-              className="inline-block bg-[#0071e3] text-white text-sm font-medium py-3 px-6 rounded-[980px] no-underline hover:bg-[#0077ed] transition-colors duration-200"
+              className="mt-auto inline-block bg-[#0071e3] text-white text-sm font-medium py-3 px-6 rounded-[980px] no-underline hover:bg-[#0077ed] transition-colors duration-200 w-fit"
             >
               Download Resume
             </a>
           </div>
 
           {/* Get in touch */}
-          <div className="flex-1 bg-[#1c1c1e] border border-white/[0.08] rounded-xl p-8">
+          <div className="flex-1 flex flex-col bg-[#1c1c1e] border border-white/[0.08] rounded-xl p-8">
             <h1 className="text-[#f5f5f7] text-[40px] font-bold tracking-[-0.02em] mb-8">
               Get in touch
             </h1>
@@ -45,7 +45,7 @@ export default function ContactMe() {
               href="mailto:pechie717@gmail.com"
               target="_blank"
               rel="noreferrer"
-              className="inline-block bg-[#0071e3] text-white text-sm font-medium py-3 px-6 rounded-[980px] no-underline hover:bg-[#0077ed] transition-colors duration-200"
+              className="mt-auto inline-block bg-[#0071e3] text-white text-sm font-medium py-3 px-6 rounded-[980px] no-underline hover:bg-[#0077ed] transition-colors duration-200 w-fit"
             >
               Send me an email
             </a>
